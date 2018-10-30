@@ -1,0 +1,15 @@
+chatterpub = rospublisher('turtle1/cmd_vel','geometry_msgs/Twist')
+pause(2)
+chattermsg = rosmessage(chatterpub);
+chattermsg.Linear.X = 1;
+chattermsg.Linear.Y = -3.5;
+chattermsg.Linear.Z = 1.5;
+chattermsg.Angular.X = -0.5;
+chattermsg.Angular.Y = 0.5;
+chattermsg.Angular.Z = 2.5;
+% rostopic list
+chattersub = rossubscriber('turtle1/cmd_vel',@exampleHelperROSChatterCallback)
+send(chatterpub,chattermsg)
+pause(2)
+chattersub.LatestMessage
+% rostopic info turtle1/pose
